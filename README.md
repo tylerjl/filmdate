@@ -8,11 +8,22 @@ Returns zero and prints the year if the script can parse a release date, exits n
 
 ## Use
 
-Pretty easy:
+Pretty easy. Note that you need the modules listed in `requirements.txt`, so get them installed however you like (usually `pip install -r requirements.txt`.)
+
+As a command-line script:
 
 ```shellsession
-$ filmdate True.Grit.avi
+$ ./filmdate.py True.Grit.avi
 2010
+```
+
+From within python:
+
+```
+>>> import filmdate
+>>> filmdate.year('The.Birds.mp4')
+u'1963'
+>>>
 ```
 
 ## Testing
