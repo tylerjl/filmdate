@@ -1,3 +1,2 @@
-guessit
 omdb
 nose

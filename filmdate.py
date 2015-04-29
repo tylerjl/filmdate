@@ -3,28 +3,21 @@
 import omdb
 
 from sys      import exit
-from guessit  import guess_file_info
 from argparse import ArgumentParser
 
 def year(filename):
 
     ret = None
 
-    metadata = guess_file_info(filename)
-
-    mediatype = metadata['type']
-    if mediatype == 'unknown':
-        print('File "{0}" failed to parse'.format(filename))
-    elif mediatype != 'movie':
-        print('File "{0}" is not a movie, quitting'.format(filename))
+    title_search = omdb.title(filename)
+    if len(title_search) > 0:
+        ret = title_search['year']
     else:
-        omdb.set_default('tomatoes', True)
-        tomato_data = omdb.title(metadata['title'])
-        if len(tomato_data) <= 0:
-            print('Could not retrieve Rotten Tomatoes metadata for {0}'.format(
-                metadata['title']))
+        movie_search = omdb.search_movie(filename)
+        if len(movie_search) > 0:
+            ret = movie_search[0]['year']
         else:
-            ret = tomato_data['year']
+            print('Could not find year for "{0}"'.format(filename))
 
     return ret
 
